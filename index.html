@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#b5122b">
+<meta name="description" content="An offline personal money tracker for White Money and Black Money.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Baapu na paisa">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<title>Baapu na paisa</title>
+<style>
+:root{color-scheme:dark;--bg:#070b17;--panel:#101a2e;--panel2:#14233d;--text:#f7f8ff;--muted:#9eacc6;--line:#263b60;--red:#f0445d;--blue:#398bff;--cyan:#54d8ff;--green:#46d6a0}
+*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 92% 0%,rgba(31,115,232,.23),transparent 38%),radial-gradient(ellipse at 0% 18%,rgba(218,29,65,.22),transparent 35%),repeating-linear-gradient(135deg,rgba(255,255,255,.018) 0 1px,transparent 1px 27px),var(--bg);color:var(--text);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 15px calc(30px + env(safe-area-inset-bottom))}
+.wrap{max-width:760px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;padding:23px 2px 20px;gap:12px}.brand{font-size:23px;font-weight:900;letter-spacing:-.8px}.tag{font-size:10px;font-weight:800;letter-spacing:1.1px;color:#a7eaff;border:1px solid #2762a0;background:#102747;padding:7px 10px;border-radius:99px;white-space:nowrap}.top img{box-shadow:0 0 0 3px rgba(240,68,93,.12),0 8px 25px #06152c}
+h2{font-size:16px;letter-spacing:-.2px;margin:22px 0 12px}.muted,small{color:var(--muted)}.cards{display:grid;grid-template-columns:1fr 1fr;gap:11px}.card{position:relative;overflow:hidden;background:linear-gradient(145deg,#172b4d,#10192c);border:1px solid var(--line);border-radius:20px;padding:17px;min-width:0;box-shadow:0 12px 28px rgba(0,0,0,.16)}.card:after{content:"";position:absolute;width:105px;height:105px;right:-35px;top:-38px;border:1px solid rgba(255,255,255,.12);border-radius:50%;box-shadow:0 0 0 13px rgba(255,255,255,.025),0 0 0 27px rgba(255,255,255,.018)}.card.white{background:linear-gradient(140deg,#f0f5ff,#cbdcff);color:#172c4b;border:1px solid #fff;box-shadow:0 12px 30px rgba(28,83,160,.15)}.card.black{background:linear-gradient(140deg,#173d75,#0d1830);color:#fff;border:1px solid #31598c}.card small{display:block;margin-bottom:9px;font-size:12px;font-weight:750;letter-spacing:.25px}.card.white small{color:#4b6286}.num{position:relative;z-index:1;font-size:clamp(22px,6vw,30px);font-weight:900;letter-spacing:-1px;overflow-wrap:anywhere}.progressbox,.panel{background:linear-gradient(145deg,rgba(19,32,55,.97),rgba(12,21,38,.98));border:1px solid var(--line);border-radius:19px;padding:16px;margin-top:12px;box-shadow:0 12px 28px rgba(0,0,0,.13)}.progressbox{border-top:2px solid transparent;border-image:linear-gradient(90deg,var(--red),var(--blue)) 1;border-radius:0 0 19px 19px}.progresshead{display:flex;justify-content:space-between;gap:8px;font-size:13px;margin:5px 0 10px}.progresshead strong{font-variant-numeric:tabular-nums}.track{height:8px;background:#26364d;border-radius:99px;overflow:hidden}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--blue));border-radius:99px}
+.row{display:flex;gap:9px}.row>*{flex:1;min-width:0}label{display:block;color:#b5c4dd;font-size:11px;font-weight:750;letter-spacing:.45px;text-transform:uppercase;margin:12px 0 6px}input,select{width:100%;background:#0a1425;color:var(--text);border:1px solid #304765;border-radius:12px;padding:13px;font:inherit;outline:none;min-height:46px}input:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(84,216,255,.1)}input::placeholder{color:#71829e}button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:800;cursor:pointer;transition:transform .15s ease,filter .15s ease}button:active{transform:scale(.98)}.primary{background:linear-gradient(100deg,#ee405a,#287eea);color:#fff;width:100%;margin-top:14px;box-shadow:0 8px 20px rgba(42,102,205,.22)}.secondary{background:#203755;color:#eaf3ff;border:1px solid #35577e}.danger{background:#542236;color:#ffc1cb}.tabs{display:flex;gap:6px;margin:16px 0 13px;padding:5px;background:#0c1729;border:1px solid #1e3555;border-radius:15px;position:sticky;top:5px;z-index:4;backdrop-filter:blur(12px)}.tabs button{flex:1;background:transparent;color:#91a4c2;font-size:12px;padding:11px 4px;border-radius:10px}.tabs button.active{background:linear-gradient(100deg,#b5122b,#1559a6);color:#fff;box-shadow:0 5px 15px rgba(12,55,112,.35)}.hidden{display:none!important}
+.item{display:flex;align-items:center;gap:9px;padding:13px 0;border-bottom:1px solid var(--line)}.item:last-child{border:0;padding-bottom:0}.dot{width:39px;height:39px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(145deg,#a51d39,#164b88);font-size:18px;flex:none}.desc{flex:1;min-width:0}.desc strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.desc small{font-size:11px}.amount{text-align:right;font-weight:850;white-space:nowrap}.itembuttons{display:flex;gap:4px;margin-left:2px}.itembuttons button{padding:7px 8px;font-size:10px;background:#243c5b;color:#dce7f5}.empty{text-align:center;color:var(--muted);padding:24px 5px}.foot{text-align:center;color:#8294b1;font-size:11px;line-height:1.6;margin:22px 0}.pill{display:inline-block;font-size:10px;padding:3px 7px;border-radius:30px;background:#493b22;color:#ffd17a}.pill.paid{background:#153d33;color:#6be2b5}
+.lock{position:fixed;inset:0;background:radial-gradient(ellipse at 90% 15%,rgba(30,111,224,.25),transparent 45%),radial-gradient(ellipse at 0% 85%,rgba(205,25,57,.23),transparent 45%),#080e1b;z-index:10;display:flex;align-items:center;justify-content:center;padding:24px}.lockbox{width:min(100%,370px);text-align:center;background:linear-gradient(145deg,#172743,#101a2c);border:1px solid #34517a;border-radius:26px;padding:27px 23px;box-shadow:0 25px 80px rgba(0,0,0,.4)}.lockbox h1{font-size:26px;letter-spacing:-.8px;margin:5px 0}.pininput{text-align:center;font-size:25px;letter-spacing:12px;margin:14px 0}.hint{font-size:12px;color:var(--muted);line-height:1.55}.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:linear-gradient(100deg,#b5122b,#1559a6);color:white;padding:11px 16px;border-radius:12px;z-index:20;display:none;max-width:90%;text-align:center;box-shadow:0 10px 30px #0008}
+@media(min-width:560px){body{padding-left:24px;padding-right:24px}.card{padding:20px}.panel{padding:19px}}
+@media(max-width:370px){.brand{font-size:20px}.tabs button{font-size:11px}.row{gap:7px}}
+</style>
+</head>
+<body>
+<div id="lock" class="lock"><div class="lockbox">
+  <img src="./icons/icon-192.png" alt="App logo" style="width:86px;height:86px;object-fit:cover;border-radius:22px;border:2px solid #ef3340;box-shadow:0 0 24px #1766b877;margin-bottom:10px"><h1>Baapu na paisa</h1><p class="hint" id="lockHint">Create your 4-digit PIN</p>
+  <input id="pinInput" class="pininput" type="password" inputmode="numeric" maxlength="4" placeholder="••••" autocomplete="off">
+  <button class="primary" id="pinButton">Continue</button>
+  <p class="hint" id="pinNote">Set a 4-digit PIN to get started.</p>
+</div></div>
+
+<div class="wrap" id="app" hidden>
+<header class="top"><div><div style="display:flex;align-items:center;gap:10px"><img src="./icons/icon-192.png" alt="Logo" style="width:43px;height:43px;object-fit:cover;border-radius:12px;border:1px solid #ef5268"><div><div class="brand">Baapu na paisa</div><div style="font-size:10px;letter-spacing:1.5px;color:#9fb4d3;font-weight:800;margin-top:2px">YOUR MONEY. YOUR CONTROL.</div></div></div></div><div class="tag" style="color:#69c8ff;border-color:#2762a0">● OFFLINE</div></header>
+<section class="cards">
+ <div class="card white"><small>💵 White Money</small><div class="num" id="whiteBal">₹0</div></div>
+ <div class="card black"><small>🐺 Black Money</small><div class="num" id="blackBal">₹0</div></div>
+</section>
+<div class="progressbox">
+ <div class="progresshead"><span>Total available money</span><strong id="totalBal">₹0</strong></div>
+ <div class="progresshead"><span>Total spent</span><strong id="totalSpent">₹0</strong></div>
+ <div class="progresshead"><span>Pending payments</span><strong id="pendingTotal">₹0</strong></div>
+</div>
+<div class="tabs">
+ <button class="active" data-tab="actions">Actions</button><button data-tab="history">History</button><button data-tab="reports">Reports</button><button data-tab="settings">Settings</button>
+</div>
+
+<section id="tab-actions">
+ <div class="panel">
+  <h2 style="margin-top:0">Add Money</h2>
+  
+  <select id="addType"><option value="white">💵 White Money</option><option value="black">🐺 Black Money</option></select>
+  <div class="row"><div><label>Amount (₹)</label><input id="addAmount" type="number" min="1" step="0.01" placeholder="e.g. 500"></div><div><label>Source / Note</label><input id="addNote" placeholder="Parents, savings..."></div></div>
+  <button class="primary" id="addBtn">+ Add Money</button>
+ </div>
+ <div class="panel">
+  <h2 style="margin-top:0">Spend Money</h2>
+  
+  <select id="spendType"><option value="white">💵 White Money</option><option value="black">🐺 Black Money</option><option value="split">Split — both accounts</option></select>
+  <label>Expense name</label><input id="spendName" placeholder="e.g. Shoes, Clothes">
+  <div class="row"><div><label>Total Amount (₹)</label><input id="spendAmount" type="number" min="1" step="0.01" placeholder="e.g. 1800"></div><div><label>Category</label><select id="category"><option>Shopping</option><option>Clothes</option><option>Food</option><option>Travel</option><option>Entertainment</option><option>Study</option><option>Other</option></select></div></div>
+  <div id="splitFields" class="row hidden"><div><label>💵 White part (₹)</label><input id="splitWhite" type="number" min="0" step="0.01" placeholder="0"></div><div><label>🐺 Black part (₹)</label><input id="splitBlack" type="number" min="0" step="0.01" placeholder="0"></div></div>
+  <label>Payment status</label><select id="paymentStatus"><option value="paid">Paid</option><option value="pending">Pending</option></select>
+  <label>Note (optional)</label><input id="spendNote" placeholder="Additional details">
+  <button class="primary" id="spendBtn">− Record Expense</button>
+ </div>
+ <div class="panel">
+  <h2 style="margin-top:0">Transfer Money</h2>
+  <div class="row"><div><label>From</label><select id="transferFrom"><option value="white">💵 White Money</option><option value="black">🐺 Black Money</option></select></div><div><label>To</label><select id="transferTo"><option value="black">🐺 Black Money</option><option value="white">💵 White Money</option></select></div></div>
+  <label>Amount (₹)</label><input id="transferAmount" type="number" min="1" step="0.01" placeholder="Amount">
+  <button class="secondary" style="width:100%;margin-top:12px" id="transferBtn">⇄ Transfer</button>
+ </div>
+</section>
+
+<section id="tab-history" class="hidden">
+ <div class="panel"><div class="row" style="align-items:center"><h2 style="margin:0;flex:1">Transaction History</h2><select id="filterType" style="max-width:145px"><option value="all">All entries</option><option value="white">💵 White</option><option value="black">🐺 Black</option></select></div><div id="historyList"></div></div>
+</section>
+<section id="tab-reports" class="hidden">
+ <div class="panel"><h2 style="margin-top:0">Monthly Report</h2><label>Select month</label><input type="month" id="reportMonth"><div id="reportContent"></div></div>
+</section>
+<section id="tab-settings" class="hidden">
+ <div class="panel"><h2 style="margin-top:0">Budget & Savings Goal</h2><label>Total budget (optional)</label><input id="budgetInput" type="number" min="0" placeholder="₹ Budget"><label>Savings goal (optional)</label><input id="goalInput" type="number" min="0" placeholder="₹ Goal"><button class="secondary" id="saveGoals" style="width:100%;margin-top:12px">Save</button></div>
+ <div class="panel"><h2 style="margin-top:0">Security</h2><p class="hint">The 4-digit PIN locks this app. App data is stored locally in this browser.</p><label>Change PIN</label><input id="newPin" type="password" inputmode="numeric" maxlength="4" placeholder="New 4-digit PIN"><button class="secondary" id="changePin" style="width:100%;margin-top:10px">Update PIN</button></div>
+ <div class="panel"><h2 style="margin-top:0">Backup & Restore</h2><p class="hint">Export a JSON backup before changing phones. This app does not send data to the cloud.</p><div class="row"><button class="secondary" id="exportJson">Export JSON</button><button class="secondary" id="exportCsv">Export CSV</button></div><label>Restore JSON backup</label><input id="restoreFile" type="file" accept="application/json,.json"><button class="secondary" id="restoreBtn" style="width:100%;margin-top:10px">Restore Backup</button></div>
+ <div class="panel"><h2 style="margin-top:0">Data</h2><button class="danger" id="clearData" style="width:100%">Delete all app data</button></div>
+</section>
+<p class="foot">Offline-first personal tracker · Data is saved on this device/browser.<br>Keep regular JSON backups. Clearing browser data may permanently remove entries if you do not have a backup.</p>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const KEY='baapu_na_paisa_v1', PINKEY='baapu_pin_v1';
+const $=id=>document.getElementById(id);
+let data={white:0,black:0,transactions:[],budget:0,goal:0};
+let setupStage='create', firstPin='';
+const money=n=>'₹'+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2});
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d&&typeof d==='object')data={...data,...d};}catch(e){}}
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render();}
+function toast(t){const el=$('toast');el.textContent=t;el.style.display='block';setTimeout(()=>el.style.display='none',2300);}
+function lockInit(){const pin=localStorage.getItem(PINKEY);if(pin){setupStage='unlock';$('lockHint').textContent='Enter your 4-digit PIN';$('pinNote').textContent='Enter your PIN to unlock the app.';$('pinButton').textContent='Unlock';}else{setupStage='create';$('lockHint').textContent='Create your 4-digit PIN';$('pinNote').textContent='Set your PIN for the first time.';$('pinButton').textContent='Continue';}}
+$('pinButton').onclick=()=>{const p=$('pinInput').value;if(!/^\d{4}$/.test(p)){toast('Please enter a 4-digit PIN.');return;}if(setupStage==='create'){firstPin=p;setupStage='confirm';$('pinInput').value='';$('lockHint').textContent='Confirm your PIN';$('pinNote').textContent='Enter the same PIN again.';$('pinButton').textContent='Confirm';}else if(setupStage==='confirm'){if(p!==firstPin){firstPin='';setupStage='create';$('pinInput').value='';$('lockHint').textContent='PINs do not match. Create a new PIN.';$('pinNote').textContent='Please try again.';$('pinButton').textContent='Continue';return;}localStorage.setItem(PINKEY,p);unlock();}else{if(p===localStorage.getItem(PINKEY))unlock();else{ $('pinInput').value='';toast('Incorrect PIN. Please try again.');}}};
+function unlock(){$('lock').classList.add('hidden');$('app').hidden=false;load();render();}
+function render(){const spent=data.transactions.filter(t=>t.kind==='spend'&&t.status==='paid').reduce((s,t)=>s+t.amount,0);const pending=data.transactions.filter(t=>t.kind==='spend'&&t.status==='pending').reduce((s,t)=>s+t.amount,0);$('whiteBal').textContent=money(data.white);$('blackBal').textContent=money(data.black);$('totalBal').textContent=money(data.white+data.black);$('totalSpent').textContent=money(spent);$('pendingTotal').textContent=money(pending);$('budgetInput').value=data.budget||'';$('goalInput').value=data.goal||'';renderHistory();renderReport();}
+function addTx(t){data.transactions.unshift({id:Date.now()+Math.random(),date:new Date().toISOString(),...t});}
+$('addBtn').onclick=()=>{const type=$('addType').value,amount=Number($('addAmount').value);if(!(amount>0)){toast('Please enter a valid amount.');return;}data[type]+=amount;addTx({kind:'add',type,amount,note:$('addNote').value||'Money added',status:'paid'});$('addAmount').value='';$('addNote').value='';save();toast((type==='white'?'💵 White':'🐺 Black')+' Money added successfully.');};
+$('spendType').onchange=()=>{$('splitFields').classList.toggle('hidden',$('spendType').value!=='split');};
+$('spendBtn').onclick=()=>{const mode=$('spendType').value,name=$('spendName').value.trim(),amount=Number($('spendAmount').value),status=$('paymentStatus').value;if(!name||!(amount>0)){toast('Please enter an expense name and a valid amount.');return;}let w=0,b=0;if(mode==='white')w=amount;else if(mode==='black')b=amount;else{w=Number($('splitWhite').value||0);b=Number($('splitBlack').value||0);if(Math.abs(w+b-amount)>.009){toast('White and Black amounts must add up to the total.');return;}}if(status==='paid'&&(w>data.white||b>data.black)){toast('Insufficient balance in the selected account.');return;}if(status==='paid'){data.white-=w;data.black-=b;}addTx({kind:'spend',type:mode,whitePart:w,blackPart:b,amount,name,category:$('category').value,note:$('spendNote').value,status});['spendName','spendAmount','splitWhite','splitBlack','spendNote'].forEach(id=>$(id).value='');save();toast('Expense saved successfully.');};
+$('transferBtn').onclick=()=>{const from=$('transferFrom').value,to=$('transferTo').value,amount=Number($('transferAmount').value);if(from===to||!(amount>0)){toast('Choose two different accounts and enter an amount.');return;}if(data[from]<amount){toast('Insufficient balance in this account.');return;}data[from]-=amount;data[to]+=amount;addTx({kind:'transfer',from,to,amount,status:'paid'});$('transferAmount').value='';save();toast('Transfer complete.');};
+function txLabel(t){if(t.kind==='add')return 'Add · '+(t.type==='white'?'💵 White':'🐺 Black');if(t.kind==='transfer')return 'Transfer · '+(t.from==='white'?'💵':'🐺')+' → '+(t.to==='white'?'💵':'🐺');return (t.name||'Expense')+' · '+(t.category||'Spend');}
+function renderHistory(){const f=$('filterType').value;const arr=data.transactions.filter(t=>f==='all'||t.type===f||(t.kind==='spend'&&(f==='white'?t.whitePart>0:t.blackPart>0))||(t.kind==='transfer'&&(t.from===f||t.to===f)));$('historyList').innerHTML=arr.length?arr.map(t=>{let sign=t.kind==='add'?'+':t.kind==='spend'?'−':'⇄';let color=t.kind==='add'?'#38d39f':t.kind==='spend'?'#ff7272':'#79a9ff';let date=new Date(t.date).toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'});let details=t.kind==='spend'?(t.type==='split'?'💵 '+money(t.whitePart)+' · 🐺 '+money(t.blackPart):(t.type==='white'?'💵 White':'🐺 Black')):t.kind==='add'?(t.type==='white'?'💵 White':'🐺 Black'):(t.from==='white'?'💵':'🐺')+' → '+(t.to==='white'?'💵':'🐺');return `<div class="item"><div class="dot">${t.kind==='add'?'➕':t.kind==='spend'?'🛍️':'🔁'}</div><div class="desc"><strong>${esc(txLabel(t))}</strong><small>${esc(details)} · ${esc(date)} ${t.status==='pending'?'<span class="pill">Pending</span>':''}</small></div><div class="amount" style="color:${color}">${sign}${money(t.amount)}<div class="itembuttons"><button data-del="${t.id}">Delete</button>${t.kind==='spend'&&t.status==='pending'?`<button data-paid="${t.id}">Paid</button>`:''}</div></div></div>`}).join(''):'<div class="empty">No transactions yet.</div>';document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>deleteTx(b.dataset.del));document.querySelectorAll('[data-paid]').forEach(b=>b.onclick=()=>markPaid(b.dataset.paid));}
+function deleteTx(id){const t=data.transactions.find(x=>String(x.id)===String(id));if(!t||!confirm('Delete this transaction?'))return;if(t.kind==='add')data[t.type]-=t.amount;else if(t.kind==='transfer'){data[t.to]-=t.amount;data[t.from]+=t.amount;}else if(t.kind==='spend'&&t.status==='paid'){data.white+=t.whitePart||0;data.black+=t.blackPart||0;}data.transactions=data.transactions.filter(x=>String(x.id)!==String(id));save();toast('Transaction deleted.');}
+function markPaid(id){const t=data.transactions.find(x=>String(x.id)===String(id));if(!t||t.status!=='pending')return;if(t.whitePart>data.white||t.blackPart>data.black){toast('Insufficient balance.');return;}data.white-=t.whitePart||0;data.black-=t.blackPart||0;t.status='paid';save();toast('Payment marked as paid.');}
+$('filterType').onchange=renderHistory;
+function renderReport(){const m=$('reportMonth').value||new Date().toISOString().slice(0,7);const arr=data.transactions.filter(t=>t.date.slice(0,7)===m);const adds=arr.filter(t=>t.kind==='add').reduce((s,t)=>s+t.amount,0),spends=arr.filter(t=>t.kind==='spend'&&t.status==='paid').reduce((s,t)=>s+t.amount,0),pend=arr.filter(t=>t.kind==='spend'&&t.status==='pending').reduce((s,t)=>s+t.amount,0);$('reportContent').innerHTML=`<div class="cards" style="margin-top:14px"><div class="card"><small>Money Added</small><div class="num green">${money(adds)}</div></div><div class="card"><small>Paid Expenses</small><div class="num red">${money(spends)}</div></div><div class="card"><small>Pending</small><div class="num">${money(pend)}</div></div><div class="card"><small>Transactions</small><div class="num">${arr.length}</div></div></div>`;}
+$('reportMonth').value=new Date().toISOString().slice(0,7);$('reportMonth').onchange=renderReport;
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));['actions','history','reports','settings'].forEach(t=>$('tab-'+t).classList.toggle('hidden',t!==b.dataset.tab));});
+$('saveGoals').onclick=()=>{data.budget=Number($('budgetInput').value||0);data.goal=Number($('goalInput').value||0);save();toast('Saved.');};
+$('changePin').onclick=()=>{const p=$('newPin').value;if(!/^\d{4}$/.test(p)){toast('Enter a new 4-digit PIN.');return;}if(!confirm('Change your PIN?'))return;localStorage.setItem(PINKEY,p);$('newPin').value='';toast('PIN updated successfully.');};
+function download(name,content,type){const a=document.createElement('a'),url=URL.createObjectURL(new Blob([content],{type}));a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+$('exportJson').onclick=()=>download('baapu-na-paisa-backup.json',JSON.stringify({data,pin:localStorage.getItem(PINKEY)},null,2),'application/json');
+$('exportCsv').onclick=()=>{const rows=[['Date','Type','Name','Money Type','Amount','White Part','Black Part','Category','Status','Note']];data.transactions.forEach(t=>rows.push([t.date,t.kind,t.name||'',t.type||'',t.amount,t.whitePart||0,t.blackPart||0,t.category||'',t.status||'',t.note||'']));const csv=rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\n');download('baapu-na-paisa-transactions.csv','\ufeff'+csv,'text/csv;charset=utf-8;');};
+$('restoreBtn').onclick=async()=>{const f=$('restoreFile').files[0];if(!f){toast('Please select a JSON backup file.');return;}try{const obj=JSON.parse(await f.text());const d=obj.data||obj;if(!Array.isArray(d.transactions)||typeof d.white!=='number'||typeof d.black!=='number')throw Error();if(!confirm('Replace current data with this backup?'))return;data={...data,...d};if(obj.pin&&/^\d{4}$/.test(obj.pin))localStorage.setItem(PINKEY,obj.pin);save();toast('Backup restored successfully.');}catch(e){toast('This backup file is invalid or unsupported.');}};
+$('clearData').onclick=()=>{if(!confirm('Delete all entries and balances? This cannot be undone.'))return;localStorage.removeItem(KEY);localStorage.removeItem(PINKEY);data={white:0,black:0,transactions:[],budget:0,goal:0};location.reload();};
+load();lockInit();
+let installPrompt=null;
+const installBtn=document.getElementById('installBtn');
+if(installBtn){
+ window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;installBtn.classList.remove('hidden');});
+ installBtn.addEventListener('click',async()=>{if(!installPrompt){toast('In Safari, tap Share → Add to Home Screen.');return;}installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;installBtn.classList.add('hidden');});
+}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+</script>
+</body></html>
