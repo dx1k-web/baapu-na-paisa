@@ -147,5 +147,3 @@ I’m currently studying BCA, but honestly, I’m still a beginner when it comes
 This app/web project was built with ChatGPT’s coding help, combined with my own vision, ideas and creativity.
 
 I’m not a professional developer (not yet 👀). I just had an idea, wanted to bring it to life, and decided to have fun with it.
-
-Just a fun little project, built with big dreams and AI. 🚀❤️
